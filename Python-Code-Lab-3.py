@@ -1,10 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-path = "https://raw.githubusercontent.com/OlafPBach/Advanced-Physics-Labs/main/lab3data.csv"
+path = "https://raw.githubusercontent.com/OlafPBach/Advanced-Physics-Labs/main/Data-Lab-3.csv"
 data = np.genfromtxt(path, delimiter=',', names =True,invalid_raise = False)
 time = data['Time']/10
-sensorValue = data['RawPot']/100 + 22
+sensorValue = data['RawPot']/80 + 23.5
 RawTemp = data['RawTemp']
 
 A = 0.003354016
