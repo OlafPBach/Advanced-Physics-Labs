@@ -1,37 +1,23 @@
 const int outPin = 9;
-int outputLevel=0;
-float R3 = 3.3;
-float VT = 5;
-float A = 0.003354016;
-float B = 0.0002993410;
-float C = 0.000002135133;
-float D = -0.000000005672000;
-
 void setup() 
 {
 pinMode(outPin, OUTPUT);
 Serial.begin(9600);
 }
-
 void loop() 
 {
-int sensorValue = (analogRead(A0));
-int PotVolt = sensorValue;
-outputLevel = map(PotVolt,30,1023,0,255);
-analogWrite(outPin,outputLevel);
+int sensorValue = (analogRead(A0)/4);
+analogWrite(outPin,sensorValue);
 
-int sensorValue2 = (analogRead(A1));
-float V4 = ((sensorValue2)/.2046)/1000;
-float R4 = (V4*R3)/(VT-V4);
-float St = log(R4/3.3);
-float Temp = pow(A + B*St + C*pow(St,2) + D*pow(St,3),-1) - 273.15;
+int RawTemp = (analogRead(A1));
 
-int millisec = millis()/10;
+int millisec = millis()/100;
+
 Serial.print(millisec);
 Serial.print(',');
-Serial.print(outputLevel);
+Serial.print(sensorValue);
 Serial.print(',');
-Serial.println(Temp);
+Serial.println(RawTemp);
 
-delay(1);
+delay(100);
 }
