@@ -1,18 +1,16 @@
-unsigned long currentTime = 0;
-unsigned long lastTime = 0;
-const unsigned long intervalBetweenData = 1000;
+unsigned long Time = 0;
+
 void setup() {
 Serial.begin(500000);
 }
 void loop() {
-currentTime =  micros();
+;
 
-if (currentTime - lastTime >= intervalBetweenData ) {
   int sensorValue = analogRead(A0);
-  lastTime+=intervalBetweenData;
+  Time = Time + 1;
 
-Serial.print(currentTime/1000);
+Serial.print(Time);
 Serial.print(',');
 Serial.println(sensorValue);
-}
+delay(1);
 }
