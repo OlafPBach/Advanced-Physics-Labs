@@ -1,20 +1,41 @@
+const int numReadings = 10;
 const int ledPin = 9;
 const int Pi = 3.1415926;
 
-int brightness;
+int readings[numReadings];
+int readIndex = 0;
+int total = 0;
+int average = 0;
+
+int inputPin = A0;
 
 void setup() {
-Serial.begin(500000);
-pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+  pinMode(ledPin, OUTPUT);
+  for (int thisReading = 0; thisReading < numReadings; thisReading++) {
+    readings[thisReading] = 0;
   }
+}
 
 void loop() {
-brightness = 100+50*sin(2*Pi*millis()/1000);
+
+int brightness = 100+50*sin(2*Pi*millis()/1000);
 analogWrite(ledPin,brightness);
-int sensorValue = analogRead(A0);
 long Time = millis();
-Serial.print(Time);
-Serial.print(',');
-Serial.println(sensorValue);
-delay(1);
+
+  total = total - readings[readIndex];
+  readings[readIndex] = analogRead(inputPin);
+  total = total + readings[readIndex];
+  readIndex = readIndex + 1;
+
+  if (readIndex >= numReadings) {
+    readIndex = 0;
   }
+
+
+  average = total / numReadings;
+  //Serial.print(Time);
+  //Serial.print(',');
+  Serial.println(average);
+  delay(1); 
+}
