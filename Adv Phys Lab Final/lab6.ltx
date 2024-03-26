@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+	\huge{Lab Final : Proving Ideal Gas Laws \\[10pt]}
+	\large{Olaf Bach}
+\end{center}
+
+\section{Introduction}
+\normalsize{Being the final, I expected this lab to be difficult and it definately delivered on that. From technical issues plagueing my arduino to physical issues about holding a vacuum seal, this lab really tested my abilities and my patience. This lab was created to prove the ideal gas relation that PV/T is constant so long as the there is an air-tight seal on the container being measured.}
+
+\section{Setup}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.15]{circuit}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 1: Circuit Diagram}
+\end{center}
+\begin{center}
+\includegraphics[scale=0.07]{photograph}
+\end{center}
+\begin{center}
+\normalsize{Figure 2: Photo of Circuit}
+\end{center}
+
+\begin{noindent}
+\normalsize{The Breadboard only really has two electrical circuits. The first circuit is the linear sliding potentiometer which is electronically connected to the A0 pin, and physically connected to the handle on the syringe, all be it loosely. The second circuit uses the BP180 temperature and pressure sensor to measure the temperature and pressure inside the syringe. The sensor is connected to the SCL and SDA pins on the arduino and the actual chip is physically inside the syringe. These two circuits are connected in parallel to each other.}
+\end{noindent}
+
+\section{Arduino Code}
+\begin{noindent}
+\normalsize{Since the entire project is to demonstrate that this effect works in real time all the code is done in realtime on the arduino. Firstly, the code uses a library from the manufacturers of the BP180 in order to function. I was given the blue-prints to the library on \href{https://lastminuteengineers.com/bmp180-arduino-tutorial/}{This Website} which was very handy. This gave me pressure and temperature with fairly little input on my end. What I had to figure out firsthand was how to link the potentiometer resistence to the volume of air in the syringe. Suprisingly this was fairly easy, because the potentiometer is linear I was able to measure the volume of the maximum and minimum positions (using Volume = pi*r*r*L) and map those onto the potentiometer readings at those points. I then created a float called "Total" which was simply enough PV/T. I then measured the time and graphed all the variables which had to be reduced by arbitrary constants so that they appear close together on the same graph. I did this mainly because standard pressure was 300 times larger than standard temperature on the readings and you could barely see what was going on.
+\\[2pt]}
+\normalsize{Link to the code: \href{https://github.com/OlafPBach/Advanced-Physics-Labs/blob/main/Final-Project-Arduino-Code}{Link}\\[5pt]}
+\end{noindent}
+
+
+\section{Data}
+\begin{noindent}
+\normalsize{Data is a little weird for this lab, normally I would record the data and make a fancy graph, however because this lab focuses on a physical identity it made more sense to record myself pressing down on the syringe. Also for some reason I couldn't stop the flow of data on the newest version of arduino so I could not select nor grab the data of this trial. The yellow line is the total or PV/T, the red line was pressure, the blue line was temperature, and the green line was volume.} 
+
+\normalsize{Link to the video \href{https://youtu.be/wZ0rBQHussY}{Link}\\[3pt]}
+
+\normalsize{The one thing that confused me is that when I first start pressing on the syringe the total value jumps a little before staying constant. My best guess is that the potentiometer updates faster than the chip so it caused a small offset in the timings causing a jump.} 
+
+\end{noindent}
+
+
+
+\end{document}

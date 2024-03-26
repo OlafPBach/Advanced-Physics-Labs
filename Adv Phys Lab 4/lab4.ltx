@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+	\huge{Lab 4 : Detecting an Unknown Signal \\[10pt]}
+	\large{Olaf Bach}
+\end{center}
+
+\section{Introduction}
+\begin{center}
+\normalsize{While the lab does introduce a new component for us to use, the photoresistor, the lab has a much stronger focus on data processing side. In this lab we were given multiple signals overlapped and were tasked to find the individual signal components. To do this we put the combined signal on our monitors, we then used the photoresistor to convert the flashing lights into data, with this data we figured out what combination of source signals create our test frequency. This process could be extremely useful for data transfer. Instead of just sending one signal at a time you could send hundreds that are then seperated and processed.}
+\end{center}
+
+\section{Setup}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.15]{circuit}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 1: Circuit Diagram\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space Figure 2: Photo of Breadboard}
+\end{center}
+
+\begin{noindent}
+\normalsize{The Breadboard was set-up very similarly to our first lab. Except instead of an unknown resistor we used a photoresistor.\\[2pt]}
+\end{noindent}
+
+\section{Arduino Code}
+\begin{noindent}
+\normalsize{The arduino code for this lab was fairly straight forward. All we did was measure the input across the photoresistor. We don't even convert the units. The only new part is making sure that each data point is assigned a time that's perfectly spaced. To do this I made a variable called Time that kept increasing by one every millisecond. This solution would not work for heavy loaded code however, because the code is very simple it wasn't an issue. To confirm I cross-checked the Time variable with the arduino's inbuilt timer and they matched.\\[2pt]}
+\normalsize{Link to the code: \href{url}{https://github.com/OlafPBach/Advanced-Physics-Labs/blob/main/Arduino-Code-Lab-4.txt}}
+\end{noindent}
+
+
+\section{Data}
+\begin{noindent}
+\normalsize{On python I first imported the csv file from github and then converted the collumns of the csv into data values. I then used process from scipy.fft which finds the most common frequenices in a data set. I then graphed the original data set and the fft data set. I also added a red cross on each of the peaks. I did this for both the tester signal and then for my own personal signal. Using this I found that the tester frequency was 2.5Hz which made sure that my code works. Then for my personal signal I found peaks at 1.2Hz, 2.2Hz, 4.8Hz, 7.3Hz.} 
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=.7]{signals}
+\end{center}
+\end{figure}
+
+\normalsize{Link to the test data: \href{url}{https://github.com/OlafPBach/Advanced-Physics-Labs/blob/main/Test-Signal-Lab-4.csv\\[2pt]}}
+\normalsize{Link to the personal data: \href{url}{https://github.com/OlafPBach/Advanced-Physics-Labs/blob/main/Personal-Signal-Lab-4.csv\\[2pt]}}
+\normalsize{Link to the test code: \href{url}{https://github.com/OlafPBach/Advanced-Physics-Labs/blob/main/Test-Graph-Lab-4.py\\[2pt]}}
+\normalsize{Link to the personal code: \href{url}{https://github.com/OlafPBach/Advanced-Physics-Labs/blob/main/Personal-Graph-Lab-4.py\\[2pt]}}
+\end{noindent}
+
+
+
+\end{document}

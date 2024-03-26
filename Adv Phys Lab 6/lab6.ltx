@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+	\huge{Lab 6 : Low Pass Filter \\[10pt]}
+	\large{Olaf Bach}
+\end{center}
+
+\section{Introduction}
+\begin{center}
+\normalsize{This lab was very difficult for me as i had no clue how to properly replicate the first unfiltered graph. No matter what I did I never got a square wave, and instead i kept getting spikes. Nonetheless, my filtered graph came out very nice despite not having a good reference.}
+\end{center}
+
+\section{Setup}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.15]{circuit}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 1: Circuit Diagram\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space Figure 2: Photo of Breadboard}
+\end{center}
+
+\begin{noindent}
+\normalsize{The breadboard was setup as a low pass filter. The signal coming from the d9 pin went throught a resistor and then through a capacitor then to ground. The A0 pin is connected in between the resistor and the capacitor and gives a filtered version of the original source.}
+\end{noindent}
+
+\section{Arduino Code}
+\begin{noindent}
+\normalsize{The Arduino code just generates a tone and records the time.\\[2pt]}
+\normalsize{Link to the code: \href{https://github.com/OlafPBach/Advanced-Physics-Labs/blob/main/Arduino-Code-Lab-6.txt}{Link}\\[200pt]}
+\end{noindent}
+
+
+\section{Data}
+\begin{noindent}
+\normalsize{I ran the tone sequence without a filter and then with a filter. I then put both data points onto one graph where the raw signal is blue and the filtered signal is red. My biggest issue is that I couldn't figure out how to make the raw signal look good so instead it just looks like lines, apologies for that.} 
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=.5]{comparison}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 3: Raw and Filtered Signals}
+\end{center}
+\normalsize{Link to python code \href{https://github.com/OlafPBach/Advanced-Physics-Labs/blob/main/Lab-6-python-code.py}{Link}\\[3pt]}
+\normalsize{Link to raw data \href{https://github.com/OlafPBach/Advanced-Physics-Labs/blob/main/Lab-6-data.py}{Link}\\[3pt]}
+\normalsize{Link to filtered data \href{https://github.com/OlafPBach/Advanced-Physics-Labs/blob/main/Lab-6-data-capacitor.py}{Link}\\[3pt]}
+
+\normalsize{The filter is working based on how the tone signal works. In the raw signal the value is either zero or the highest. However in a the filtered signal it lowers the peaks and raises the troughs. As well as the shape goes from a square wave (ideally) to a sort of sine wave.} 
+
+\end{noindent}
+
+
+
+\end{document}

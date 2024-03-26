@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage{wrapfig}
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{center}
+	\huge{Lab 2 : Taking Your Temperature \\[10pt]}
+	\large{Olaf Bach}
+\end{center}
+
+\section{Objective}
+\begin{center}
+\normalsize{Can we determine the temperature of a space using a temperature dependant resistor}
+\end{center}
+
+\section{Materials}
+\begin{noindent}
+\normalsize{-Arduino Uno\\[2pt]}
+\normalsize{-Breadboard\\[2pt]}
+\normalsize{-Thermistor\\[2pt]}
+\normalsize{-A 3.3k $\Omega$ resistor\\[2pt]}
+\normalsize{-Wires\\[2pt]}
+\normalsize{-Computer\\[2pt]}
+\end{noindent}
+
+\section{Procedure And Code}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.2]{circuit}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 1: Circuit Diagram\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space Figure 2: Photo of Breadboard}
+\end{center}
+
+\begin{noindent}
+\normalsize{The circuit used in this lab is nearly identical to the one used in Lab1. In this lab however, instead of using an unknown resistor we're using a variable resistor. This resistor, called a thermistor, responds to changes in temperature with a change in resistance. In our case our thermistor has a negative temperature coefficient which means as temperature goes up, resistance goes down, and vise-versa.  The circuit is connected to an arduino to monitor the voltage output across the thermistor. The arduino software then takes that output and converts it from arduino charge units into volts. The value for volts is then converted to resistance using the following equation.}
+\begin{equation}
+R_2 = \frac{V_2 * R_1}{V_t - V_2}
+\end{equation}
+\normalsize{Where $R_2$ and $V_2$ are the resistance and voltage across the thermisistor respectively. $R_1$ is $3.3k\Omega$, the resistance of the known resistor, and $V_t$ is the total voltage across the entire circuit. This equation was derived in Lab1.\\[2pt]}
+\normalsize{The code then finds the temperature through a formula derived from the formula on the datasheet for the thermisistors}
+\begin{equation}
+T=(A+B*ln(\frac{R}{R_{ref}})+C*ln^2(\frac{R}{R_{ref}})+D*ln^3(\frac{R}{R_{ref}}))^{-1}
+\end{equation}
+\normalsize{A,B,C, and D are all found on the data sheet, from here $ln(\frac{R}{R_{ref}})$ is simplified to a variable $S_t$}
+\begin{equation}
+T=(A+B*S_t+C*S_t^2+D*S_t^3)^{-1}
+\end{equation}
+\normalsize{This equation is for kelvin, to convert it to celcius it is subtracted by 273.15}
+\begin{equation}
+T=(A+B*S_t+C*S_t^2+D*S_t^3)^{-1}-273.15
+\end{equation}
+\normalsize{Now we have a equation that can take voltage and convert it directly into degrees celcius. The arduino then creates a comma seperated list of "Seconds" and "Temperature".\\[2pt]}
+\normalsize{Link to the code: https://pastebin.com/f26G9TDD}
+\end{noindent}
+
+\section{Data}
+\begin{noindent}
+\normalsize{Using the code from the last section I measured the temperature from within my computer while I was using it. The data was writtin onto arduino's monitor, which was then exported into a csv file. Using this csv file I used python to create the following graph} 
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.4]{graph}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 3: Graph of the Data}
+\end{center}
+\normalsize{Using references online I was able to use matplotlib to graph the function. I used plt.xticks to change how many values of time are shown, without it the entire axis is a complete mess.\\[2pt]}
+\normalsize{Link to the code: https://pastebin.com/YXGEUsfv\\[2pt]}
+\normalsize{Link to the data: https://pastebin.com/0BHbk3WR\\[2pt]}
+\end{noindent}
+
+
+
+\end{document}

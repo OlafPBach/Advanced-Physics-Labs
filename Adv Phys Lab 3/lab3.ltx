@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+	\huge{Lab 3 : Make a Heater and Measure Temperature \\[10pt]}
+	\large{Olaf Bach}
+\end{center}
+
+\section{Introduction}
+\begin{center}
+\normalsize{This lab has multiple parts. We were introduced to the potentiometer which we use to create a turn dial which will vary the measured voltage on the arduino. We then use the measured voltage across the potentiometer to create a PWM voltage input accross a weak resistor. This creates a bit of heat which we then measure the temperature of using a thermistor. We then plot everything to show the relationship between turning the potentiometer to the temperature of the resistor.}
+\end{center}
+
+\section{Setup and Equations}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.15]{circuit}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 1: Circuit Diagram\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space\space Figure 2: Photo of Breadboard}
+\end{center}
+
+\begin{noindent}
+\normalsize{I set-up the breadboard in 3 modules. Two modules were connected to a static 5 voltage, those being the potentiometer and the thermistor. Both of which being measured with a voltmeter each. The last module was connected to the variable voltage on the output pin 9 and controlled the current across the weak resistor which acted as a heator. The thermistor was placed within contact of the heater to measure it's temperature. The full schematic and a photograph are given above.\\[2pt]}
+\normalsize{When starting this lab I was worried that because I had different parts connected in parallel that the equations would need to be changed. So the first thing I did was try to find the resistance across the thermistor ($R_3$) as if it were an unkown resistor. Given only voltage across the thermistor ($V_3$), a known resistor ($R_2$), and the circuit's total voltage ($V_{tot}$).}
+\begin{equation}
+I_3=I_{inner}=\frac{V_{tot}}{R_2+R_3} 
+\end{equation}
+\begin{equation}
+R_3=\frac{V_3}{I_3}=\frac{V_3(R_2+R_3)}{V_{tot}}
+\end{equation}
+\begin{equation}
+R_3=\frac{V_3*R_3}{V_{tot}}+\frac{V_3*R_2}{V_{tot}}
+\end{equation}
+\begin{equation}
+R_3-\frac{V_3*R_3}{V_{tot}}=\frac{V_3*R_2}{V_{tot}}
+\end{equation}
+\begin{equation}
+R_3(1-\frac{V_3}{V_{tot}})=\frac{V_3*R_2}{V_{tot}}
+\end{equation}
+\begin{equation}
+R_3=\frac{V_3*R_2}{V_{tot}}*\frac{1}{1-\frac{V_3}{V_{tot}}}
+\end{equation}
+\begin{equation}
+R_3=\frac{V_3*R_2}{V_{tot}}*\frac{1}{\frac{V_{tot}-V_3}{V_{tot}}}
+\end{equation}
+\begin{equation}
+R_3=\frac{V_3*R_2}{V_{tot}-V_3}
+\end{equation}
+\normalsize{Now we can see that the equations to find the resistance of these resistors is independant of any other part.\\[2pt]}
+\normalsize{A couple of these values are known so the equation becomes}
+\begin{equation}
+R_3=\frac{V_3*3.3k\Omega}{5V-V_3}
+\end{equation}
+\normalsize{The last equation needed for this lab is to convert the resistance across the thermistor into degrees celcius. Luckily we already solved for this in the last lab so I just imported the same code}
+\begin{equation}
+T=(A+B*S_t+C*S_t^2+D*S_t^3)^{-1}-273.15
+\end{equation}
+\normalsize{A,B,C, and D are all found on the thermistor's data sheet, and $S_t$ = $ln(\frac{R}{R_{ref}})$}
+\end{noindent}
+
+\section{Arduino Code}
+\begin{noindent}
+\normalsize{This lab was the first where we started messing with the output, that being said it wasn't too hard to implement output changes. The code works in steps. First it reads the value given by the potentiometer over A0, then it writes that value as voltage over the heater. Second it reads the sensor value of A1 connected between the thermistor and a known resistor, this value will be converted to temperature in python. Finally it counts the time and prints all 3 values: time, potentiometer reading, thermistor reading. I then copied these values and imported them into a csv file.\\[2pt]}
+\normalsize{Link to the code: \href{url}{https://github.com/OlafPBach/Advanced-Physics-Labs/blob/main/Arduino-Code-Lab-3.txt}}
+\end{noindent}
+
+
+\section{Data}
+\begin{noindent}
+\normalsize{On python I first imported the csv file from github and then converted the collumns of the csv into data values. I then converted the thermistor's recorded value over A1 to degrees celcius. I then realized that if I plot everything then the potentiometer's value will be so large it'll completely destroy the graph. After some messing around I found a way to convert the value so that it shows up nicely on the graph. I then graphed the two values onto one graph shown down below} 
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.4]{graph}
+\end{center}
+\end{figure}
+\begin{center}
+\normalsize{Figure 3: Graph of the Data}
+\end{center}
+\normalsize{Link to the code: \href{url}{https://github.com/OlafPBach/Advanced-Physics-Labs/blob/main/Python-Code-Lab-3.py}}
+\normalsize{Link to the data: \href{url}{https://github.com/OlafPBach/Advanced-Physics-Labs/blob/main/Data-Lab-3.csv}}
+\end{noindent}
+
+
+
+\end{document}
